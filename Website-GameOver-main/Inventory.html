@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Panel privado de administración de inventario de GameOver.">
+    <title>GameOver | Inventario</title>
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700" rel="stylesheet">
+    <link href="assets/css/Home.css" rel="stylesheet">
+    <link href="assets/css/store.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header-home-page">
+        <div class="header-logo-home">
+            <a href="Home.html"><img src="assets/img/logo-re1.png" alt="GameOver"></a>
+        </div>
+        <nav class="nav-bar-home-page" aria-label="Navegación principal">
+            <ul>
+                <li><a href="Home.html">INICIO</a></li>
+                <li><a href="Home.html#list1-topgames">CATÁLOGO</a></li>
+                <li><a href="Cart.html">CARRITO (<span id="header-cart-count">0</span>)</a></li>
+                <li><a href="Inventory.html" id="inventory-nav-link" hidden aria-current="page">INVENTARIO</a></li>
+                <li><a href="Login.html" id="login-link">INICIAR SESIÓN</a></li>
+                <li><button type="button" class="nav-role-button" id="logout-button" hidden>CERRAR SESIÓN</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="inventory-page" id="inventory-page" hidden>
+        <section class="inventory-section" id="inventory" aria-labelledby="inventory-title">
+            <div class="inventory-heading">
+                <div>
+                    <p class="store-kicker">ADMINISTRACIÓN</p>
+                    <h1 id="inventory-title">Control de inventario</h1>
+                    <p>Administra el catálogo y revisa las existencias en un solo lugar.</p>
+                </div>
+                <a class="store-button store-button--outline" href="Home.html">Volver a la tienda</a>
+            </div>
+            <p class="inventory-disclaimer">Demostración local: los cambios se guardan en este navegador. La autenticación real requiere un servidor.</p>
+            <p class="store-message" id="inventory-message" role="status" aria-live="polite"></p>
+            <div class="inventory-stats" aria-live="polite">
+                <div><span>Productos</span><strong id="inventory-product-count">0</strong></div>
+                <div><span>Unidades disponibles</span><strong id="inventory-stock-count">0</strong></div>
+                <div><span>Requieren reposición</span><strong id="inventory-low-count">0</strong></div>
+                <div><span>Agotados</span><strong id="inventory-out-count">0</strong></div>
+            </div>
+            <section class="inventory-alerts" aria-labelledby="inventory-alerts-title">
+                <div class="inventory-alerts__heading">
+                    <div>
+                        <h2 id="inventory-alerts-title">Alertas de reposición</h2>
+                        <p>Se avisa cuando las existencias llegan al mínimo definido para cada producto.</p>
+                    </div>
+                </div>
+                <div class="inventory-alert-list" id="inventory-alert-list" aria-live="polite"></div>
+            </section>
+            <form class="inventory-form" id="product-form">
+                <h2 id="product-form-title">Agregar videojuego</h2>
+                <input id="product-id" type="hidden">
+                <div class="inventory-fields">
+                    <label>Nombre
+                        <input id="product-name" name="name" type="text" maxlength="80" required>
+                    </label>
+                    <label>Desarrollador
+                        <input id="product-developer" name="developer" type="text" maxlength="60" required>
+                    </label>
+                    <label>Categoría
+                        <select id="product-category" name="category" required>
+                            <option value="Acción">Acción</option>
+                            <option value="Carreras">Carreras</option>
+                            <option value="Deportes">Deportes</option>
+                            <option value="Aventura">Aventura</option>
+                        </select>
+                    </label>
+                    <label>Precio (USD)
+                        <input id="product-price" name="price" type="number" min="0" step="0.01" required>
+                    </label>
+                    <label>Existencias
+                        <input id="product-stock" name="stock" type="number" min="0" step="1" required>
+                    </label>
+                    <label>Mínimo para alertar
+                        <input id="product-reorder-point" name="reorderPoint" type="number" min="0" step="1" value="5" required>
+                        <span class="inventory-field-help">Avisa al llegar a este nivel o menos.</span>
+                    </label>
+                    <label>Stock objetivo
+                        <input id="product-target-stock" name="targetStock" type="number" min="1" step="1" value="10" required>
+                        <span class="inventory-field-help">La sugerencia de reposición completa hasta esta cantidad.</span>
+                    </label>
+                    <label class="inventory-image-field">Portada del catálogo
+                        <select id="product-image" name="image">
+                            <option value="">Selecciona una portada existente</option>
+                            <option value="p25.jpg">Forza Horizon 5</option>
+                            <option value="p26.jpg">Red Dead Redemption 2</option>
+                            <option value="p27.jpg">FIFA 22</option>
+                            <option value="p48.jpg">Horizon Zero Dawn</option>
+                            <option value="p49.webp">Grand Theft Auto V</option>
+                            <option value="p46.jpg">F1 22</option>
+                            <option value="p45.webp">Fortnite</option>
+                            <option value="p50.jpg">Outriders</option>
+                        </select>
+                        <span class="inventory-field-help">O elige una imagen desde tu PC. JPG, PNG o WebP; máximo 5 MB. Se guardará en este navegador.</span>
+                        <input id="product-image-file" name="imageFile" type="file" accept="image/jpeg,image/png,image/webp">
+                        <img id="product-image-preview" class="inventory-image-preview" alt="Vista previa de la portada" hidden>
+                    </label>
+                </div>
+                <div class="inventory-actions">
+                    <button class="store-button" type="submit" id="save-product-button">Guardar producto</button>
+                    <button class="store-button store-button--outline" type="button" id="cancel-edit-button" hidden>Cancelar edición</button>
+                </div>
+            </form>
+            <div class="inventory-table-wrap">
+                <table class="inventory-table">
+                    <thead><tr><th>Videojuego</th><th>Categoría</th><th>Precio</th><th>Existencias</th><th>Mínimo</th><th>Objetivo</th><th>Estado</th><th>Acciones</th></tr></thead>
+                    <tbody id="inventory-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="Home.html"><img src="assets/img/logo-re1.png" alt="GameOver"></a>
+                <p>Administración de inventario GameOver.</p>
+            </div>
+            <nav class="footer-links" aria-label="Enlaces del pie de página">
+                <h2>Explora</h2>
+                <a href="Home.html">Inicio</a>
+                <a href="Home.html#list1-topgames">Catálogo</a>
+                <a href="Cart.html">Carrito</a>
+            </nav>
+            <div class="footer-demo-note">
+                <h2>GameOver</h2>
+                <p>Panel de administración de demostración.</p>
+            </div>
+        </div>
+        <p class="copyright-text">© GameOver</p>
+    </footer>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/store.js"></script>
+</body>
+</html>

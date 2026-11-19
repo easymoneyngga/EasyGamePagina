@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inicia sesión o crea una cuenta de GameOver.">
+    <link rel="stylesheet" href="assets/css/Login.css">
+    <title>Iniciar sesión | GameOver</title>
+</head>
+<body>
+    <main>
+        <section aria-label="Acceso a GameOver">
+            <div class="container">
+                <div class="user signinBx">
+                    <div class="imgBx"><img src="assets/img/p1-game.jpg" alt="Videojuego"></div>
+                    <div class="formBx">
+                        <form id="login-form">
+                            <a class="back-to-store" href="Home.html">← Volver a la tienda</a>
+                            <h1>Iniciar sesión</h1>
+                            <p id="login-description">Entra como usuario o administrador.</p>
+                            <label for="login-username">Usuario</label>
+                            <input id="login-username" name="username" type="text" autocomplete="username" required>
+                            <label for="login-password">Contraseña</label>
+                            <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+                            <p class="form-message" id="login-message" role="alert" aria-live="polite"></p>
+                            <button type="submit">Entrar</button>
+                            <p class="signup">¿No tienes cuenta? <a href="#" data-toggle>Regístrate</a></p>
+                            <p class="demo-notice">Acceso admin de demostración: <strong>admin</strong> / <strong>gameover-admin</strong>. No uses estas credenciales en producción.</p>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="user signupBx">
+                    <div class="formBx">
+                        <form id="register-form">
+                            <a class="back-to-store" href="Home.html">← Volver a la tienda</a>
+                            <h1>Crear cuenta</h1>
+                            <p>Las cuentas nuevas tienen rol de usuario.</p>
+                            <label for="register-username">Usuario</label>
+                            <input id="register-username" name="username" type="text" minlength="3" maxlength="30" autocomplete="username" required>
+                            <label for="register-email">Correo electrónico</label>
+                            <input id="register-email" name="email" type="email" autocomplete="email" required>
+                            <label for="register-password">Contraseña (mínimo 8 caracteres)</label>
+                            <input id="register-password" name="password" type="password" minlength="8" autocomplete="new-password" required>
+                            <label for="register-confirm-password">Confirmar contraseña</label>
+                            <input id="register-confirm-password" name="confirm-password" type="password" minlength="8" autocomplete="new-password" required>
+                            <p class="form-message" id="register-message" role="alert" aria-live="polite"></p>
+                            <button type="submit">Crear cuenta</button>
+                            <p class="signup">¿Ya tienes cuenta? <a href="#" data-toggle>Inicia sesión</a></p>
+                        </form>
+                    </div>
+                    <div class="imgBx"><img src="assets/img/p4.jpg" alt="Consola de videojuegos"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>
